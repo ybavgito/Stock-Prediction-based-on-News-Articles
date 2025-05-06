@@ -1,32 +1,35 @@
-# 📈 Stock-Prediction-based-on-News-Articles
+# 📈 Stock Prediction Based on News Articles
 
-## 🧠 Overall Goal
-
-The goal of this project is to **predict the movement of stocks** based on **NLP-based features** extracted from financial news articles.
+This project implements a FinBERT-based regression model that predicts monthly stock price changes based on financial news headlines. It also includes a RAG (Retrieval-Augmented Generation) system to make real-time predictions using live news data.
 
 ---
 
-## ✅ Steps
+## 🔍 About
 
-- Collect financial ticker data and relevant news articles in a time frame  
-- Extract sentiment and key features (potentially use NER, topic modeling, etc.) from news articles  
-- Train machine learning models to predict short-term stock movements  
-- Use appropriate evaluation metrics to evaluate the models  
-- Provide visualization and build UI  
+- A stock prediction pipeline using **BERT embeddings** and a **regression model** trained on financial headlines.
+- Predicts **percentage change** in stock price from one month to the next.
+- A **RAG system** is built on top to support real-time predictions from Bing Search news results.
 
 ---
 
-## 📚 Data Sources & Approaches
+## 🗃️ Datasets
 
-- **News Articles:**  
-  Scraped from financial news sites, APIs from Yahoo Finance, Google News, etc.
+### 📰 Financial News Headlines
+- Source: Kaggle dataset (user-collected).
+- JSONL format grouped by stock and month.
 
-- **Stock Price Data:**  
-  Sourced from Yahoo Finance
+### 📊 Stock Price Data
+- Source: [Polygon.io](https://polygon.io/)
+- Provides `this_month_vw`, `next_month_vw`, and `percentage_change`.
 
-- **Processing Tools:**  
-  `NLTK`, `SpaCy`, `Hugging Face Transformers`, `Scikit-learn`, `Pandas`,  
-  `Matplotlib`, `Plotly` for visualization
+---
 
-- **Potential Machine Learning Models:**  
-  Regression models, Random Forest, LSTMs, Transformer-based models (BERT, FinBERT)
+## 🧠 Model Architecture
+
+### FinBERT Regressor
+- Uses **FinBERT** for contextual embedding of grouped headlines.
+- A **linear layer** maps `[CLS]` token output to a single regression value.
+- Only the regression head is trained; FinBERT is frozen.
+
+```python
+Input Headlines → Tokenizer → FinBERT → [CLS] Embedding → Linear Layer → % Change Prediction
