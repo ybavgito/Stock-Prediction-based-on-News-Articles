@@ -33,3 +33,5 @@ This project implements a FinBERT-based regression model that predicts monthly s
 
 ```python
 Input Headlines → Tokenizer → FinBERT → [CLS] Embedding → Linear Layer → % Change Prediction
+
+![Model Architecture](assets/0.png)
